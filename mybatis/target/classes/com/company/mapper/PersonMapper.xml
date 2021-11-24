@@ -13,4 +13,7 @@
 	<select id="selectPerson" resultType="java.lang.String">
 		select name from person where id = #{id}
 	</select>
+	<select id="all" resultType="com.company.domain.PersonDTO">
+		select * from person
+	</select>
 </mapper>

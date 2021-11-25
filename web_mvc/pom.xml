@@ -3,47 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.company</groupId>
-	<artifactId>app</artifactId>
-	<name>book_annotation</name>
+	<artifactId>controller</artifactId>
+	<name>webmvc</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>5.3.1</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>2.0.0-alpha5</org.slf4j-version>
+		<org.slf4j-version>1.7.30</org.slf4j-version>
 	</properties>
 	<dependencies>
-		<!-- mybatis : SQL mapper framework -->
-		<dependency>
-		    <groupId>org.mybatis</groupId>
-		    <artifactId>mybatis</artifactId>
-		    <version>3.5.7</version>
-		</dependency>
-		<!-- mybatis-spring : spring과 mybatis 연결을 위한 라이브러리 -->
-		<dependency>
-		    <groupId>org.mybatis</groupId>
-		    <artifactId>mybatis-spring</artifactId>
-		    <version>2.0.6</version>
-		</dependency>
-		<!-- spring jdbc -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>5.3.1</version>
-		</dependency>
-		<!-- hikariCP : 커넥션 풀 -->
-		<dependency>
-		   <groupId>com.zaxxer</groupId>
-		   <artifactId>HikariCP</artifactId>
-		   <version>5.0.0</version>
-		</dependency>
-		<!-- ojdbc8 : 자바와 오라클 데이터베이스 연동 -->
-		<dependency>
-		    <groupId>com.oracle.database.jdbc</groupId>
-		    <artifactId>ojdbc8</artifactId>
-		    <version>19.12.0.0</version>
-		</dependency>
 		<!-- lombok : 어노테이션으로 자바 코드 생성 -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
@@ -119,22 +89,25 @@
 		</dependency>
 				
 		<!-- Servlet -->
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>javax.servlet.jsp-api</artifactId>
+		    <version>2.3.3</version>
+		    <scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
 		</dependency>
 	
 		<!-- Test -->

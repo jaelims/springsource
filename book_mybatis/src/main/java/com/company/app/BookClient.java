@@ -9,11 +9,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.company.domain.BookDTO;
 import com.company.service.BookService;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class BookClient {
 	
 	private static BookService service;
 	
 	public static void main(String[] args) {
+		
+		log.info("main 시작");
+		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("config.xml");
 		
 		// 서비스 호출

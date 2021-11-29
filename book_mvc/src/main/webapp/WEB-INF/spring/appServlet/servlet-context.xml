@@ -9,13 +9,13 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
-	<!-- HandlerMapping, Handler Adapter -->
+	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- ViewResolver : View 생성 -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
@@ -23,18 +23,6 @@
 	
 	<context:component-scan base-package="com.company.controller" />
 	
-	<!-- SampleInterceptor 빈 생성 -->
-	<beans:bean id="sampleInterceptor" class="com.company.interceptor.SampleInterceptor"/>
 	
-	<!-- interceptor 설정 -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/doA"/>
-			<mapping path="/doB"/>
-			<mapping path="/doC"/>
-			<mapping path="/"/>
-			<beans:ref bean="sampleInterceptor"/>
-		</interceptor>
-	</interceptors>
 	
 </beans:beans>

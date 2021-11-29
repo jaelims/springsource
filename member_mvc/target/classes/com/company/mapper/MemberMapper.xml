@@ -16,4 +16,18 @@
 		select * from member where userid = #{userid}
 	</select>
 	
+	<!-- 로그인 : 아이디와 비밀번호 일치 시 아이디, 이름 담기 -->
+	<select id="login" resultType="com.company.domain.LoginDTO">
+		select userid, name from member where userid = #{userid} and password = #{password}
+	</select>
+	
+	<!-- 비밀번호 변경 : 아이디와 현재 비밀번호가 일치하면 변경 비밀번호로 바꾸기 -->
+	<update id="changePwd">
+		update member set password = #{new_password} where userid = #{userid} and password = #{password}
+	</update>
+	
+	<delete id="leave">
+		delete from member where userid = #{userid} and password = #{password}
+	</delete>
+	
 </mapper>

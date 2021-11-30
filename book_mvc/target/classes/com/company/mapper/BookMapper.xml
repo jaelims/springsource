@@ -13,4 +13,12 @@
 	<select id="read" resultType="com.company.domain.BookDTO">
 		select * from bookTBL where code = #{code}
 	</select>
+	
+	<delete id="remove">
+		delete from bookTBL where code = #{code}
+	</delete>
+	
+	<update id="modify">
+		update bookTBL set price = #{price} where code = #{code}
+	</update>
 </mapper>

@@ -29,4 +29,14 @@ public class BookServiceImpl implements BookService {
 		return mapper.read(code);
 	}
 
+	@Override
+	public boolean remove(String code) {
+		return mapper.remove(code) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean modify(int password, String code) {
+		return mapper.modify(password, code) > 0 ? true : false;
+	}
+
 }

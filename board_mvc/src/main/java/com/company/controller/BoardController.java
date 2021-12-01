@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.company.domain.BoardDTO;
+import com.company.domain.Criteria;
+import com.company.domain.PageDTO;
 import com.company.service.BoardService;
 
 import lombok.extern.log4j.Log4j2;
@@ -42,16 +45,20 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("전체 리스트 요청");
+	public void list(Model model, Criteria cri) {
+		log.info("전체 리스트 요청" + cri);
 		
-		List<BoardDTO> list = service.getRows();
+		List<BoardDTO> list = service.getRows(cri);
 		
+		// 페이지 나누기를 위한 정보 얻기
+		int totalCnt = service.getTotalCount();
+		
+		model.addAttribute("pageDto", new PageDTO(cri, totalCnt));
 		model.addAttribute("list", list);
 	}
 	
 	@GetMapping({"/read", "/modify"})
-	public void readGet(int bno, Model model) {
+	public void readGet(int bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("read or modify 폼 요청" + bno);
 		
 		BoardDTO dto = service.read(bno);
@@ -60,21 +67,32 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modifyPost(BoardDTO modifyDto) {
-		log.info("수정하기 요청" + modifyDto);
+	public String modifyPost(BoardDTO modifyDto, Criteria cri, RedirectAttributes rttr) {
+		log.info("수정하기 요청" + modifyDto+"  "+cri);
 		
 		// 수정 완료 후 리스트로 이동
 		service.update(modifyDto);
+		
+		// 페이지 나누기 값
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 
+		rttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/remove")
-	public String removePost(int bno) {
-		log.info("게시물 삭제 요청" + bno);
+	public String removePost(int bno, Criteria cri, RedirectAttributes rttr) {
+		log.info("게시글 삭제 요청" + bno);
 		
+		// 수정 삭제 후 리스트로 이동
 		service.remove(bno);
 		
+		// 페이지 나누기 값
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
+		rttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
 	}
 }

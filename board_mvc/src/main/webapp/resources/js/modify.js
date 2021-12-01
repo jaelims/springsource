@@ -2,21 +2,21 @@
  * modify.jsp 스크립트
  */
 
-$(function(){
-	
+$(function() {
+
 	// remove, list 일때 전송될 폼
 	let formObj = $("#actionForm");
-	
-	$("button").click(function(e){
+
+	$("button").click(function(e) {
 		e.preventDefault(); // submit 막기
-		
+
 		// 어느버튼에서 명령이 왔는가
 		// data-*
 		let oper = $(this).data("oper");
-		
-		if(oper=='modify') {
+
+		if (oper == 'modify') {
 			formObj = $("form[role='form']");
-		} else if(oper=='remove') {
+		} else if (oper == 'remove') {
 			formObj.attr("action", "/board/remove")
 				   .attr("method", "post");
 		} else {
@@ -24,7 +24,7 @@ $(function(){
 				   .attr("method", "get")
 				   .find("input[name='bno']").remove();
 		}
-		
+
 		formObj.submit();
 	})
 })

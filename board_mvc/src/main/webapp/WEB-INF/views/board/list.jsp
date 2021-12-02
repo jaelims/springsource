@@ -3,7 +3,7 @@
 <%@include file="../includes/header.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Board List</h1>
+                    <h1 class="page-header"><a href="/board/list?pageNum=1&amount=10&type=&keyword=">Board List</a></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -48,14 +48,14 @@
                             			<input type="hidden" name="amount" value="${pageDto.cri.amount}"/>
                             			<select name="type" id="">
                             				<option value="">---------------</option>
-                            				<option value="T">제목</option>
-                            				<option value="C">내용</option>
-                            				<option value="W">작성자</option>
-                            				<option value="TC">제목 or 내용</option>
-                            				<option value="TW">제목 or 작성자</option>
-                            				<option value="TCW">제목 or 내용 or 작성자</option>
+                            				<option value="T" <c:out value="${pageDto.cri.type == 'T' ? 'selected':''}"/>>제목</option>
+                            				<option value="C" <c:out value="${pageDto.cri.type == 'C' ? 'selected':''}"/>>내용</option>
+                            				<option value="W" <c:out value="${pageDto.cri.type == 'W' ? 'selected':''}"/>>작성자</option>
+                            				<option value="TC" <c:out value="${pageDto.cri.type == 'TC' ? 'selected':''}"/>>제목 or 내용</option>
+                            				<option value="TW" <c:out value="${pageDto.cri.type == 'TW' ? 'selected':''}"/>>제목 or 작성자</option>
+                            				<option value="TCW" <c:out value="${pageDto.cri.type == 'TCW' ? 'selected':''}"/>>제목 or 내용 or 작성자</option>
                             			</select>
-                            			<input type="text" name="keyword" id="" />
+                            			<input type="text" name="keyword" id="" value='<c:out value="${pageDto.cri.keyword}"/>'/>
                             			<button class="btn btn-default">Search</button>
                             		</form>
                             	   </div>
@@ -102,6 +102,8 @@
 <form action="" method="get" id="actionForm">
 	<input type="hidden" name="pageNum" value="${pageDto.cri.pageNum}"/>
 	<input type="hidden" name="amount" value="${pageDto.cri.amount}"/>
+	<input type="hidden" name="type" value="${pageDto.cri.type}"/>
+	<input type="hidden" name="keyword" value="${pageDto.cri.keyword}"/>
 	<input type="hidden" name="bno" value=""/>
 </form>
 

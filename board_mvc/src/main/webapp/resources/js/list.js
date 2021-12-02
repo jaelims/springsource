@@ -52,6 +52,9 @@ $(function() {
 		// 가져온 값을 actionForm의 amount 값 수정하기
 		actionForm.find("input[name='amount']").val(amount);
 		
+		// bno 제거
+		actionForm.find("input[name='bno']").remove();
+		
 		// 폼 전송
 		actionForm.submit();
 	})

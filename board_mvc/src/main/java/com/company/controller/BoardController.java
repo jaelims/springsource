@@ -51,7 +51,7 @@ public class BoardController {
 		List<BoardDTO> list = service.getRows(cri);
 		
 		// 페이지 나누기를 위한 정보 얻기
-		int totalCnt = service.getTotalCount();
+		int totalCnt = service.getTotalCount(cri);
 		
 		model.addAttribute("pageDto", new PageDTO(cri, totalCnt));
 		model.addAttribute("list", list);
@@ -76,6 +76,9 @@ public class BoardController {
 		// 페이지 나누기 값
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		// 검색 값
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
@@ -91,6 +94,9 @@ public class BoardController {
 		// 페이지 나누기 값
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		// 검색 값
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";

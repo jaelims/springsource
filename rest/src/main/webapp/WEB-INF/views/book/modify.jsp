@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
-<form action="/book/update" method="post">
+<form action="" method="post">
 	<div class="form-group">
 		<label for="code">Code</label>
 		<input type="text" name="code" id="code" class="form-control" readonly="readonly" value="${dto.code}"/>

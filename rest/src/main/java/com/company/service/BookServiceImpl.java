@@ -35,8 +35,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public boolean modify(int password, String code) {
-		return mapper.modify(password, code) > 0 ? true : false;
+	public boolean modify(BookDTO updateDto) {
+		return mapper.modify(updateDto) > 0 ? true : false;
 	}
 
 }

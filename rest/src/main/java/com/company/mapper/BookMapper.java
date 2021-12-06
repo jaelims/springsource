@@ -11,5 +11,5 @@ public interface BookMapper {
 	public int insert(BookDTO bookDto);
 	public BookDTO read(String code);
 	public int remove(String code);
-	public int modify(@Param("price") int price, @Param("code") String code);
+	public int modify(BookDTO updateDto);
 }

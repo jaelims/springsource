@@ -3,7 +3,27 @@
  */
 $(function(){
 	
-	$(".move").click(function(e){
+	// 전체 정보 가져오기
+	$.getJSON({
+		url:'/book/rest-list',
+		success:function(data){
+			console.log(data);
+			
+			let str = "";
+			
+			$.each(data,function(idx, element){
+				str += "<tr>";
+				str += "<td>" + element.code + "</td>";
+				str += "<td><a href = '" + element.code + "' class = 'move'>" + element.title + "</a></td>";
+				str += "<td>" + element.writer + "</td><td>" + element.price + "</td>";
+				str += "</tr>";
+			})
+			$("tbody").html(str);
+		}
+	})
+	
+	// 이벤트 위임 - 책 하나 가져오기
+	$("tbody").on("click", ".move", function(e){
 		// a 태그 속성 중지
 		e.preventDefault();
 		
@@ -27,5 +47,51 @@ $(function(){
 			}
 		})
 	})
+	
+	// 도서 삭제
+	$("#delete").click(function(){
+		$.ajax({
+			url : "1005",
+			type : 'delete',
+			success : function(data) {
+				alert(data);
+			},
+			error : function(xhr, xhrStatus, error) {
+				alert(xhr.responseText);
+			}
+		})
+	})
+	
+	// 도서 수정
+	$('#update').click(function(){
+		// 보낼 데이터 자바스크립트 객체
+		let param = {
+		  code:'1003',
+		  price:40000
+		};
+		
+		$.ajax({
+			url:'update',
+			type:'put',
+			contentType:'application/json',
+			data:JSON.stringify(param),
+			success : function(data) {
+				alert(data);
+			},
+			error : function(xhr, xhrStatus, error) {
+				alert(xhr.responseText);
+			}
+		})
+	})
+	
 })
+
+
+
+
+
+
+
+
+
 

@@ -53,11 +53,9 @@ public class BookController {
 	}
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list() {
 		log.info("list.jsp 페이지 요청");
-		List<BookDTO> list = service.listAll();
-		
-		model.addAttribute("list", list);
+		// /book/list => jsp 찾는데 사용됨
 	}
 	
 	// /book/read or /book/modify
@@ -75,13 +73,13 @@ public class BookController {
 	
 	// /book/modify + POST
 	// 수정이 완료된 후 내용보기
-	@PostMapping("/update")
-	public String modifyPost(String code, int price, RedirectAttributes rttr) {
+	@PostMapping("/modify")
+	public String modifyPost(BookDTO updateDto, RedirectAttributes rttr) {
 		log.info("수정 요청");
 		
-		service.modify(price, code);
+		service.modify(updateDto);
 		
-		rttr.addAttribute("code", code);
+		rttr.addAttribute("code", updateDto);
 		//return "redirect:/book/read?code="+code;
 		return "redirect:/book/read";
 	}

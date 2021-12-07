@@ -85,8 +85,15 @@ create sequence seq_reply;
 
 select * from SPRING_REPLY;
 
+alter table spring_reply rename column replaydate to replydate;
 
+-- 인덱스 생성
+create index idx_reply on spring_reply(bno desc, rno asc);
 
-
+select rno, bno, reply, replyer, replydate, updatedate
+from (select /*+INDEX(spring_reply idx_reply)*/ rownum rn, rno, bno, reply, replyer, replydate, updatedate
+	 from spring_reply
+	 where bno = 2704 and rno > 0 and rownum <= 20)
+where rn > 10;
 
 

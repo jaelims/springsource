@@ -18,7 +18,7 @@ insert into spring_board(bno, title, content, writer)
 
 select count(*) from spring_board;
 
-select * from SPRING_BOARD;
+select * from SPRING_BOARD order by bno desc;
 
 -- 페이지 나누기
 -- rownum
@@ -95,5 +95,18 @@ from (select /*+INDEX(spring_reply idx_reply)*/ rownum rn, rno, bno, reply, repl
 	 from spring_reply
 	 where bno = 2704 and rno > 0 and rownum <= 20)
 where rn > 10;
+
+-- spring_board 테이블에 댓글 수를 저장할 컬럼 추가
+alter table spring_board add(replycnt number default 0);
+
+-- 이미 들어간 댓글 수 삽입하기
+update SPRING_BOARD set replycnt = (select count(rno) from SPRING_REPLY where SPRING_BOARD.bno=spring_reply.bno);
+
+
+
+
+
+
+
 
 

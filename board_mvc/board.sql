@@ -103,6 +103,21 @@ alter table spring_board add(replycnt number default 0);
 update SPRING_BOARD set replycnt = (select count(rno) from SPRING_REPLY where SPRING_BOARD.bno=spring_reply.bno);
 
 
+-- 첨부파일 테이블
+create table spring_attach(
+	uuid varchar2(100) not null,
+	uploadPath varchar2(200) not null,
+	fileName varchar2(100) not null,
+	fileType char(1) default 'I',
+	bno number(10, 0)
+);
+
+alter table spring_attach add constraint pk_attach primary key(uuid);
+alter table spring_attach add constraint fk_board_attach foreign key(bno)
+references spring_board(bno);
+
+select * from spring_attach;
+
 
 
 

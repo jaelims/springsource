@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href="/resources/css/upload.css"/>
 <%@include file="../includes/header.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
@@ -35,5 +35,24 @@
                 		</div>
                 	</div>
                 </div>
-            </div>           
-<%@include file="../includes/footer.jsp" %>       
+            </div>
+<!-- 첨부파일 등록 -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-files-o"></i>파일 첨부</div>
+			<div class="panel-body">
+				<div class="form-group uploadDiv">
+					<input type="file" name="uploadFile" id="" multiple />
+				</div>
+				<div class="uploadResult">
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/resources/js/upload.js"></script>
+<%@include file="../includes/footer.jsp" %>
+
+   

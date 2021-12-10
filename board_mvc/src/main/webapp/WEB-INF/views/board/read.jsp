@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href="/resources/css/upload.css"/>
 <%@include file="../includes/header.jsp" %>
 	<div class="row">
 	    <div class="col-lg-12">
@@ -40,7 +40,10 @@
 	    	</div>
 	    </div>
 	</div>
-<!-- 첨부파일 등록 -->
+<!-- 첨부파일 영역 -->
+<div class="bigPictureWrapper">
+	<div class="bigPicture"></div>
+</div>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">

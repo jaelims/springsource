@@ -11,6 +11,7 @@ import com.company.domain.BoardDTO;
 import com.company.domain.Criteria;
 import com.company.mapper.BoardAttachMapper;
 import com.company.mapper.BoardMapper;
+import com.company.mapper.ReplyMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -19,6 +20,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	@Autowired
 	private BoardAttachMapper boardAttachMapper;
+	@Autowired
+	private ReplyMapper replyMapper;
 	
 	@Transactional
 	@Override
@@ -50,13 +53,40 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.read(bno);
 	}
 
+	@Transactional
 	@Override
 	public boolean update(BoardDTO modifyDto) {
-		return mapper.modify(modifyDto) > 0 ? true : false;
+		
+		// 기존 첨부파일 삭제
+		boardAttachMapper.deleteAll(modifyDto.getBno());
+		
+		boolean modifyResult = mapper.modify(modifyDto) == 1;
+		
+		// 첨부파일이 없다면 돌아가기
+		if(modifyDto.getAttachList() == null || modifyDto.getAttachList().size() <= 0) {
+			return modifyResult;
+		}
+		
+		// 첨부파일이 있는 경우
+		if(modifyResult && modifyDto.getAttachList().size() > 0) {
+			modifyDto.getAttachList().forEach(attach -> {
+				attach.setBno(modifyDto.getBno());
+				boardAttachMapper.insert(attach);
+			});
+		}
+		
+		return modifyResult;
 	}
 
+	@Transactional
 	@Override
 	public boolean remove(int bno) {
+		// 댓글 삭제
+		replyMapper.deleteAll(bno);
+		
+		// 첨부물 삭제
+		boardAttachMapper.deleteAll(bno);
+		
 		return mapper.remove(bno) > 0 ? true : false;
 	}
 
@@ -68,6 +98,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<AttachFileDTO> findByBno(int bno) {
 		return boardAttachMapper.read(bno);
+	}
+
+	@Override
+	public boolean attachRemove(int bno) {
+		return boardAttachMapper.deleteAll(bno) == 1;
 	}
 
 }

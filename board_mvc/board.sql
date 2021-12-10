@@ -118,7 +118,15 @@ references spring_board(bno);
 
 select * from spring_attach;
 
+select * from spring_reply;
 
+-- 데이터 삭제 시 삭제할 데이터를 참조하는 처리를 어떻게 할 것이냐?
+-- spring_board bno가 삭제가 될 때 게시글에 달려있는 댓글은 어떻게 할 것인가?
+
+-- spring_board bno가 살제가 될 때 첨부파일은 삭제?
+
+on delete cascade -- 데이터 삭제시 데이터를 참조하고 있는 데이터도 함께 삭제
+on delete set null -- 데이터 삭제시 데이터를 참조하고 있는 데이터에 null 수정
 
 
 

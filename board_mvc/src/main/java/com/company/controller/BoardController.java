@@ -1,5 +1,9 @@
 package com.company.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,17 +100,24 @@ public class BoardController {
 	public String removePost(int bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("게시글 삭제 요청" + bno);
 		
+		// 첨부파일 목록 얻어오기
+		List<AttachFileDTO> attachList = service.findByBno(bno);
+		
 		// 수정 삭제 후 리스트로 이동
-		service.remove(bno);
-		
-		// 페이지 나누기 값
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		// 검색 값
-		rttr.addAttribute("type", cri.getType());
-		rttr.addAttribute("keyword", cri.getKeyword());
-		
-		rttr.addFlashAttribute("result", "success");
+		if(service.remove(bno)) {
+			
+			// 첨부 파일 삭제
+			deleteFiles(attachList);
+			
+			// 페이지 나누기 값
+			rttr.addAttribute("pageNum", cri.getPageNum());
+			rttr.addAttribute("amount", cri.getAmount());
+			// 검색 값
+			rttr.addAttribute("type", cri.getType());
+			rttr.addAttribute("keyword", cri.getKeyword());
+			
+			rttr.addFlashAttribute("result", "success");
+		}
 		return "redirect:/board/list";
 	}
 	
@@ -115,5 +126,34 @@ public class BoardController {
 		log.info("파일첨부 가져오기 " + bno);
 		return new ResponseEntity<List<AttachFileDTO>>(service.findByBno(bno), HttpStatus.OK);
 	}
+	
+	private void deleteFiles(List<AttachFileDTO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		
+		log.info("파일 삭제 중...");
+		
+		attachList.forEach(attach -> {
+			
+			Path file = Paths.get("c:\\users\\user\\Desktop\\class\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
+			
+			try {
+				// 일반파일, 이미지 원본 파일만 삭제
+				Files.deleteIfExists(file);
+				
+				if(Files.probeContentType(file).startsWith("image")) {
+					Path thumbNail = Paths.get("c:\\users\\user\\Desktop\\class\\upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_" + attach.getFileName());
+					
+					// 이미지 썸네일 삭제
+					Files.delete(thumbNail);
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	
 	
 }

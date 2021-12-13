@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
+@Configuration // 환경설정을 담당하는 파일임을 명시
 @ComponentScan(basePackages = {"com.company.service"})
 @MapperScan("com.company.mapper")
 public class BoardConfig {
 	
-	@Bean
+	@Bean // 인스턴스를 생성하고 스프링 컨테이너가 관리
 	public DataSource dataSource() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName("oracle.jdbc.OracleDriver");

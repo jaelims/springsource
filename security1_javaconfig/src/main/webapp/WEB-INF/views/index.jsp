@@ -24,7 +24,7 @@
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="info"/>
-	<c:if test="${info.username == 'admin'}">
+	<c:if test="${info.username == 'hong'}">
 		<p>
 			<a href="/admin-page">관리자로그인</a>
 		</p>
